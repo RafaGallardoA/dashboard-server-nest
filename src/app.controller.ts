@@ -5,19 +5,18 @@ import {
   MessagePattern,
   Payload,
 } from '@nestjs/microservices';
+import { EventService } from './event/event.service';
 
 @Controller()
 export class AppController {
-  constructor() {
-  }
+  constructor(    
+    private readonly eventService: EventService,
+  ) { }
 
   @MessagePattern('orders')
   readMessage(@Payload() message: any, @Ctx() context: KafkaContext) {
     const originalMessage = context.getMessage();
-    const response =
-      `Receiving a new message from topic: orders: ` +
-      JSON.stringify(originalMessage.value);
-    console.log(response);
-    return response;
+  
+    return  this.eventService.receiveMessage(originalMessage);    
   }
 }
