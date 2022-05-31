@@ -4,6 +4,8 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
 import { EventService } from './event.service';
 import configuration from '../config/configuration';
 
+const configService = new ConfigService();
+
 @Module({
   imports: [
     ConfigModule.forRoot({
