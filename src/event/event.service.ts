@@ -5,9 +5,16 @@ import { ClientKafka } from '@nestjs/microservices';
 export class EventService {
   constructor(@Inject('ORDER_SERVICE') private readonly client: ClientKafka) {}
 
-  receiveMessage(message: any) {
+  receiveOrdersData(message: any) {
     const response =
-      `Receiving a new message from topic: orders: ` +
+      `Receiving a new message from topic: orders.summary: ` +
+      JSON.stringify(message.value);
+    console.log(response);
+    return response;
+  }
+  receiveProductsData(message: any) {
+    const response =
+      `Receiving a new message from topic: products.summary: ` +
       JSON.stringify(message.value);
     console.log(response);
     return response;
