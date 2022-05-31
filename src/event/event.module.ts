@@ -3,8 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { EventService } from './event.service';
 import configuration from '../config/configuration';
-
-const configService = new ConfigService();
+import { ProductModule } from '../product/product.module';
 
 @Module({
   imports: [
@@ -31,7 +30,8 @@ const configService = new ConfigService();
         },
         inject: [ConfigService],
       },
-    ]),
+    ]),   
+    ProductModule 
   ],
   providers: [EventService],
   exports: [EventService],

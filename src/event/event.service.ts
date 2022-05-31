@@ -1,8 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { ClientKafka } from '@nestjs/microservices';
-import { Model, Document } from "mongoose";
-import { CreateProductDto } from 'src/product/create-product.dto';
-import { ProductService } from 'src/Product/product.service';
+import { CreateProductDto } from '../product/create-product.dto';
+import { ProductService } from '../product/product.service';
 
 
 @Injectable()
@@ -15,11 +14,11 @@ export class EventService {
       JSON.stringify(message.value);
     console.log(response);
 
-    const createProductDto: CreateProductDto = {
-      id: 1,
-      total: 3
-    }
-    await this.productService.create(createProductDto)
+    // const createProductDto: CreateProductDto = {
+    //   id: 1,
+    //   total: 3
+    // }
+    await this.productService.create(message.value)
     return response;
   }
 

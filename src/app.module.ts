@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import configuration from './config/configuration';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -12,8 +12,15 @@ import { EventModule } from './event/event.module';
       isGlobal: true,
       load: [configuration],
     }),
-    MongooseModule.forRoot('mongodb://localhost/demo'),
-    EventModule
+    MongooseModule.forRootAsync({
+      useFactory: (configService: ConfigService) => ({
+        uri: configService.get('mongoDB'),        
+        // sslCA: './rds-combined-ca-bundle.pem',                
+        useUnifiedTopology: true 
+      }),   
+      inject: [ConfigService],   
+    }),    
+    EventModule,
   ],
   controllers: [AppController],
   providers: [AppService],
