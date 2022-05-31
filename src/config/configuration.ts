@@ -1,3 +1,7 @@
 export default () => ({
-  kafka_broker: process.env.KAFKA_BROKER,
+  kafkaBrokers: parseKafkaBrokers(process.env.KAFKA_BROKERS),
 });
+
+const parseKafkaBrokers = (brokerString: string) => {
+  return brokerString.split(',');
+};

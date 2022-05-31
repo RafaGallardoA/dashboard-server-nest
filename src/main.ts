@@ -11,7 +11,7 @@ async function bootstrap() {
     transport: Transport.KAFKA,
     options: {
       client: {
-        brokers: [configService.get('kafka_broker')],
+        brokers: configService.get<string[]>('kafkaBrokers'),
       },
     },
   };
