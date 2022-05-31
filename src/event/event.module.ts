@@ -4,6 +4,8 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
 import { EventService } from './event.service';
 import configuration from '../config/configuration';
 
+const configService = new ConfigService();
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -17,7 +19,7 @@ import configuration from '../config/configuration';
         options: {
           client: {
             clientId: 'order',
-            brokers: ['localhost:9093'],
+            brokers: [configService.get('kafka_broker')],
           },
           consumer: {
             groupId: 'order-consumer',
