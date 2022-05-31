@@ -19,4 +19,12 @@ export class EventService {
     console.log(response);
     return response;
   }
+
+  receiveTestData(message: any) {
+    const response =
+      `Receiving a new message from topic: test: ` +
+      JSON.stringify(message.value);
+    console.log(response);
+    return response;
+  }
 }

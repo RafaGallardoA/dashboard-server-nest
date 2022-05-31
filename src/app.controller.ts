@@ -26,4 +26,11 @@ export class AppController {
 
     return this.eventService.receiveProductsData(originalMessage);
   }
+
+  @MessagePattern('test')
+  listenTest(@Payload() message: any, @Ctx() context: KafkaContext) {
+    const originalMessage = context.getMessage();
+
+    return this.eventService.receiveTestData(originalMessage);
+  }
 }
