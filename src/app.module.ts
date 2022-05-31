@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
 import configuration from './config/configuration';
 import { AppController } from './app.controller';
@@ -11,6 +12,7 @@ import { EventModule } from './event/event.module';
       isGlobal: true,
       load: [configuration],
     }),
+    MongooseModule.forRoot('mongodb://localhost/demo'),
     EventModule
   ],
   controllers: [AppController],
