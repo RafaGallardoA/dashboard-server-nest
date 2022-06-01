@@ -4,8 +4,8 @@ import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
-  const configApp = await NestFactory.create(AppModule);
-  let configService = configApp.get(ConfigService);  
+  const app = await NestFactory.create(AppModule);
+  let configService = app.get(ConfigService);  
 
   const microserviceOptions: MicroserviceOptions = {
     transport: Transport.KAFKA,
@@ -16,10 +16,9 @@ async function bootstrap() {
     },
   };
 
-  const app = await NestFactory.createMicroservice<MicroserviceOptions>(  
-    AppModule,
-    microserviceOptions
-  );
-  await app.listen();
+  app.connectMicroservice(microserviceOptions);
+  await app.startAllMicroservices();
+  await app.listen(3001);
+  
 }
 bootstrap();

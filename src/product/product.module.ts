@@ -3,6 +3,7 @@ import { ProductService } from './product.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ProductSchema } from './schema/product.schema';
 import { PRODUCT } from '../common/models/models';
+import { ProductResolver } from './product.resolver';
 
 @Module({
   imports: [    
@@ -13,7 +14,7 @@ import { PRODUCT } from '../common/models/models';
       },
     ]),  
   ],
-  providers: [ProductService],  
+  providers: [ProductService, ProductResolver],  
   exports: [ProductService],
 })
 export class ProductModule { }

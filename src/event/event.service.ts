@@ -14,31 +14,33 @@ export class EventService {
     private readonly orderService: OrderService
   ) {}
 
-  async receiveOrdersData(message: any) {
-    const response = `New Message in orders.summary: ` + JSON.stringify(message.value)      
-    console.log(response);
-
+  async receiveOrdersData(message: any) {  
+    const { id: orderId, total, count: productCount } = message.value;
     const orderDto: OrderDto = {
-      orderId: 2,
-      total: 4,
-      productCount: 6,
-    }
+      orderId,
+      total,
+      productCount,
+    }    
+
     await this.orderService.create(orderDto)
-    // await this.orderService.create(message.value)
-    return response;
+    
+    return {
+      done: true
+    };
   }
 
-  async receiveProductsData(message: any) {
-    const response = `New Message in products.summary: ` + JSON.stringify(message.value)
-    console.log(response);
-
+  async receiveProductsData(message: any) {    
+    const { id: productId, count: total } = message.value;
     const productDto: ProductDto = {
-      productId: 6,
-      total: 5
-    }
+      productId,
+      total,
+    }    
+    
     await this.productService.create(productDto)
-    // await this.productService.create(message.value)
-    return response;
+    
+    return {
+      done: true
+    };
   }
 
   async receiveTestData(message: any) {
