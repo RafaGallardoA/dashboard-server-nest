@@ -14,12 +14,10 @@ import { EventModule } from './event/event.module';
     }),
     MongooseModule.forRootAsync({
       useFactory: (configService: ConfigService) => ({
-        uri: configService.get('mongoDB'),        
-        // sslCA: './rds-combined-ca-bundle.pem',                
-        useUnifiedTopology: true 
+        uri: configService.get('uriMongoDB'),                
       }),   
       inject: [ConfigService],   
-    }),    
+    }),     
     EventModule,
   ],
   controllers: [AppController],

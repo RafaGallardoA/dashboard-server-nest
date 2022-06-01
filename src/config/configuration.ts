@@ -1,6 +1,6 @@
 export default () => ({
   kafkaBrokers: parseKafkaBrokers(process.env.KAFKA_BROKERS),
-  mongoDB: process.env.MONGO_DB,
+  uriMongoDB: process.env.URI_MONGODB,
 });
 
 const parseKafkaBrokers = (brokerString: string) => {

@@ -3,20 +3,20 @@
 import { Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { IProduct } from './product.interface';
-import { CreateProductDto } from './create-product.dto';
-import { Product } from './product.schema';
+import { IProduct } from '../common/interfaces/product.interface';
+import { ProductDto } from './dto/product.dto';
+import { PRODUCT } from '../common/models/models';
 
 @Injectable()
 export class ProductService {
   constructor(
-    @InjectModel(Product.name) private readonly productModel: Model<Product>,
+    @InjectModel(PRODUCT.name) private readonly productModel: Model<IProduct>,
   ) { }
  
   async create(
-    createProductDto: CreateProductDto,
+    productDto: ProductDto,
   ): Promise<IProduct> {
-    return await this.productModel.create(createProductDto);    
+    return await this.productModel.create(productDto);    
   }
 
 }

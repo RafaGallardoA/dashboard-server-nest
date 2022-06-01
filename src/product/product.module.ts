@@ -1,14 +1,17 @@
 import { Module } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { MongooseModule } from '@nestjs/mongoose';
-import { ProductSchema, Product } from './product.schema';
-import { EventModule } from '../event/event.module';
+import { ProductSchema } from './schema/product.schema';
+import { PRODUCT } from '../common/models/models';
 
 @Module({
-  imports: [
-    MongooseModule.forFeature([
-      { name: Product.name, schema: ProductSchema },
-    ]),    
+  imports: [    
+    MongooseModule.forFeatureAsync([
+      {
+        name: PRODUCT.name,
+        useFactory: () => ProductSchema,
+      },
+    ]),  
   ],
   providers: [ProductService],  
   exports: [ProductService],

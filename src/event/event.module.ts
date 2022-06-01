@@ -4,6 +4,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
 import { EventService } from './event.service';
 import configuration from '../config/configuration';
 import { ProductModule } from '../product/product.module';
+import { OrderModule } from 'src/order/order.module';
 
 @Module({
   imports: [
@@ -31,7 +32,8 @@ import { ProductModule } from '../product/product.module';
         inject: [ConfigService],
       },
     ]),   
-    ProductModule 
+    ProductModule,
+    OrderModule
   ],
   providers: [EventService],
   exports: [EventService],
