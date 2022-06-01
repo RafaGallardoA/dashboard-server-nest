@@ -5,6 +5,7 @@ import {
   MessagePattern,
   Payload,
 } from '@nestjs/microservices';
+import { AppMSG } from './common/constants';
 import { EventService } from './event/event.service';
 
 @Controller()
@@ -13,21 +14,21 @@ export class AppController {
     private readonly eventService: EventService,
   ) { }
 
-  @MessagePattern('orders.summary')
+  @MessagePattern(AppMSG.ORDERS_SUMMARY)
   listenOrdersSummary(@Payload() message: any, @Ctx() context: KafkaContext) {
     const originalMessage = context.getMessage();
   
     return this.eventService.receiveOrdersData(originalMessage);    
   }
 
-  @MessagePattern('products.summary')
+  @MessagePattern(AppMSG.PRODUCTS_SUMMARY)
   listenProductsSummary(@Payload() message: any, @Ctx() context: KafkaContext) {
     const originalMessage = context.getMessage();
 
     return this.eventService.receiveProductsData(originalMessage);
   }
 
-  @MessagePattern('test')
+  @MessagePattern(AppMSG.TEST)
   listenTest(@Payload() message: any, @Ctx() context: KafkaContext) {
     const originalMessage = context.getMessage();
 
